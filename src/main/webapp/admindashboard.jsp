@@ -8,9 +8,9 @@
         response.sendRedirect("adminlogin.jsp");
         return;
     }
-%>
+%> 
 <html>
-<head>
+<head> 
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <style>
