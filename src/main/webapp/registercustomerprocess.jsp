@@ -2,7 +2,7 @@
 <%@ page import="java.sql.*, java.util.Random" %>
 <!DOCTYPE html>
 <%
-     session = request.getSession(false);
+    session = request.getSession(false);
     if (session == null || session.getAttribute("adminUser") == null) {
         response.sendRedirect("adminlogin.jsp");
         return;
@@ -40,6 +40,20 @@
         int initialBalance = Integer.parseInt(request.getParameter("initial_balance"));
         String dob = request.getParameter("date_of_birth");
         String idProof = request.getParameter("id_proof");
+
+        // Validate input
+        if (!fullName.matches("[A-Za-z\\s]+")) {
+            out.println("<h2>Error: Full Name should contain only characters.</h2>");
+            return;
+        }
+        if (!mobileNo.matches("\\d{10}")) {
+            out.println("<h2>Error: Mobile No should be exactly 10 digits.</h2>");
+            return;
+        }
+        if (!idProof.matches("\\d+")) {
+            out.println("<h2>Error: ID Proof should be an integer.</h2>");
+            return;
+        }
 
         // Generate account number and temporary password
         long accountNo = generateAccountNumber();

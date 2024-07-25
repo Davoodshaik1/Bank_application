@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-     session = request.getSession(false);
+    session = request.getSession(false);
     if (session == null || session.getAttribute("adminUser") == null) {
         response.sendRedirect("adminlogin.jsp");
         return;
@@ -51,11 +51,36 @@
             background-color: #0056b3;
         }
     </style>
+    <script>
+        function validateForm() {
+            const namePattern = /^[A-Za-z\s]+$/;
+            const mobilePattern = /^\d{10}$/;
+            const idProofPattern = /^\d+$/;
+
+            const fullName = document.getElementById('full_name').value;
+            const mobileNo = document.getElementById('mobile_no').value;
+            const idProof = document.getElementById('id_proof').value;
+
+            if (!namePattern.test(fullName)) {
+                alert('Full Name should contain only characters.');
+                return false;
+            }
+            if (!mobilePattern.test(mobileNo)) {
+                alert('Mobile No should be exactly 10 digits.');
+                return false;
+            }
+            if (!idProofPattern.test(idProof)) {
+                alert('ID Proof should be an integer.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div class="registration-container">
         <h2>Register a New Customer</h2>
-        <form action="registercustomerprocess.jsp" method="post">
+        <form action="registercustomerprocess.jsp" method="post" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="full_name">Full Name</label>
                 <input type="text" id="full_name" name="full_name" required>
